@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CalculatorRequestDto } from './dto/calculator-request.dto';
 import { CalculatorResponseDto } from './dto/calculator-response.dto';
 
@@ -81,7 +81,10 @@ export class CalculatorService {
       case '/':
         return a / b;
       default:
-        throw new Error(`Unknown operator: ${op}`);
+        throw new HttpException(
+          `Unknown operator: ${op}`,
+          HttpStatus.BAD_REQUEST,
+        );
     }
   }
 
